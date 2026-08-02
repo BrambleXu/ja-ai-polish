@@ -1,6 +1,12 @@
+<div align="center">
+
 # ja-ai-polish
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
+**写出自然日语。保留事实、语体与作者意图。**
+
+[English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+
+</div>
 
 根据 brief 直接生成自然日语，或者在不改变事实、语体、术语、责任关系和作者意图的前提下，
 去除日语草稿中的模板化 AI 写作痕迹。
@@ -9,10 +15,9 @@
 
 ## 功能
 
-- **直接生成：** 根据用户提供的事实和限制生成符合场景的日语。
-- **去 AI 味改写：** 以达到目标所需的最小修改改善 AI 生成或其他来源的日语草稿。
-- **仅检测：** 解释问题模式及证据，不改写正文。
-- **作者声音校准：** 可选参考 2～5 段作者日语样本中的重复特征。
+| ✍️ 直接生成 | 🛠️ 改写 | 🔎 检测 | 🎛️ 校准 |
+|---|---|---|---|
+| 根据用户提供的事实和限制生成符合场景的日语。 | 以达到目标所需的最小修改改善日语草稿。 | 解释问题模式及证据，不改写正文。 | 参考 2～5 段作者日语样本中的重复特征。 |
 
 ## 适用范围
 
@@ -47,7 +52,7 @@ ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw 以及手动安装方�
 
 ## 快速示例
 
-直接生成：
+**✍️ 直接生成**
 
 ```text
 使用 /ja-ai-polish 写一条日语 Slack 进度消息。
@@ -55,7 +60,7 @@ ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw 以及手动安装方�
 只返回成稿。
 ```
 
-去 AI 味改写：
+**🛠️ 去 AI 味改写**
 
 ```text
 使用 /ja-ai-polish 改善下面的日语草稿，去除模板感。
@@ -64,7 +69,7 @@ ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw 以及手动安装方�
 [草稿]
 ```
 
-仅检测：
+**🔎 仅检测**
 
 ```text
 使用 /ja-ai-polish 检查下面的日语，只标注问题，不要改写。

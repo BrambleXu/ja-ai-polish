@@ -1,6 +1,12 @@
+<div align="center">
+
 # ja-ai-polish
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
+**Write natural Japanese. Preserve facts, voice, and intent.**
+
+[English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+
+</div>
 
 Write natural Japanese from a brief, or remove templated AI-writing patterns from a Japanese draft
 without changing its facts, register, terminology, responsibility, or authorial intent.
@@ -10,10 +16,9 @@ and does not optimize for detector evasion.
 
 ## What it does
 
-- **Write:** generate scene-appropriate Japanese directly from supplied facts and constraints.
-- **Edit:** improve AI-generated or other Japanese drafts with the smallest safe change.
-- **Detect:** explain patterns and evidence without rewriting the text.
-- **Calibrate:** follow repeated traits from 2–5 optional samples of the author's Japanese.
+| ✍️ Write | 🛠️ Edit | 🔎 Detect | 🎛️ Calibrate |
+|---|---|---|---|
+| Generate scene-appropriate Japanese from supplied facts and constraints. | Improve a Japanese draft with the smallest safe change. | Explain patterns and evidence without rewriting the text. | Follow repeated traits from 2–5 optional samples of the author's Japanese. |
 
 ## Suitable scope
 
@@ -50,7 +55,7 @@ Language versions:
 
 ## Quick examples
 
-Direct generation:
+**✍️ Direct generation**
 
 ```text
 Use /ja-ai-polish to write a Japanese Slack update.
@@ -58,7 +63,7 @@ Facts: the API fix is complete; load testing is pending; Sato owns it and will f
 Return only the final message.
 ```
 
-De-AI edit:
+**🛠️ De-AI edit**
 
 ```text
 Use /ja-ai-polish to make this Japanese draft less templated.
@@ -67,7 +72,7 @@ Preserve every number, product name, and commitment. Mode: edit; intensity: stan
 [draft]
 ```
 
-Diagnosis:
+**🔎 Diagnosis**
 
 ```text
 Use /ja-ai-polish to diagnose this Japanese text. Do not rewrite it.
