@@ -1,0 +1,4 @@
+interface:
+  display_name: "JA AI Polish"
+  short_description: "Write and humanize natural Japanese text"
+  default_prompt: "Use $ja-ai-polish to write or polish natural Japanese while preserving facts and voice."
