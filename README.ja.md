@@ -29,12 +29,29 @@ Qiita/Zenn の技術記事、チュートリアル、ブログ、note、コミ�
 5. 一般ルールより書き手のサンプルを優先する。
 6. 生成・修正したすべての文章を監査する。
 
+## インストール
+
+Paste this into Claude Code, Codex, or your favorite AI harness:
+
+```text
+Install this skill globally: https://github.com/BrambleXu/ja-ai-polish
+```
+
+ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw、および手動インストールの方法は[インストールガイド](docs/install/ja.md)を参照してください。
+
+他の言語：
+
+| 言語 | ガイド |
+|---|---|
+| English | [Install](docs/install/en.md) |
+| 简体中文 | [安装](docs/install/zh-CN.md) |
+
 ## すぐに試す
 
 直接生成：
 
 ```text
-ja-ai-polish を使って、日本語の Slack 進捗メッセージを書いてください。
+/ja-ai-polish を使って、日本語の Slack 進捗メッセージを書いてください。
 事実：API 修正は完了、負荷試験は未実施、担当は佐藤さん、期限は木曜。
 完成稿だけ返してください。
 ```
@@ -42,7 +59,7 @@ ja-ai-polish を使って、日本語の Slack 進捗メッセージを書いて
 AI らしさの修正：
 
 ```text
-ja-ai-polish を使って、次の日本語の定型感を抑えてください。
+/ja-ai-polish を使って、次の日本語の定型感を抑えてください。
 数字、製品名、約束はすべて維持してください。mode: edit、intensity: standard。
 
 [下書き]
@@ -51,7 +68,7 @@ ja-ai-polish を使って、次の日本語の定型感を抑えてください�
 診断：
 
 ```text
-ja-ai-polish を使って次の日本語を診断してください。書き換えは不要です。
+/ja-ai-polish を使って次の日本語を診断してください。書き換えは不要です。
 ```
 
 ## write / edit / detect モード
@@ -106,21 +123,6 @@ ja-ai-polish を使って次の日本語を診断してください。書き換�
 
 2～5 件のサンプルから、文のリズム、文体、主語省略、直接性、句読点、評価語の頻度を
 調整します。繰り返し現れる特徴だけを使い、サンプルの事実や特徴的な文を再利用しません。
-
-## インストール
-
-Paste this into Claude Code, Codex, or your favorite AI harness:
-
-> 「Install this skill globally: https://github.com/BrambleXu/ja-ai-polish」
-
-ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw、および手動インストールの方法は[インストールガイド](docs/install/ja.md)を参照してください。
-
-他の言語：
-
-| 言語 | ガイド |
-|---|---|
-| English | [Install](docs/install/en.md) |
-| 简体中文 | [安装](docs/install/zh-CN.md) |
 
 ## 評価状況
 

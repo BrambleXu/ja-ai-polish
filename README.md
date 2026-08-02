@@ -29,12 +29,31 @@ maintenance, Qiita/Zenn articles, tutorials, blogs, note posts, and community wr
 5. Prefer a supplied author voice to generic polish rules.
 6. Audit every generated or edited result.
 
+## Install
+
+Paste this into Claude Code, Codex, or your favorite AI harness:
+
+```text
+Install this skill globally: https://github.com/BrambleXu/ja-ai-polish
+```
+
+For ChatGPT, Claude Code, Cursor, Hermes Agent, OpenClaw, and manual installation methods, see the
+[installation guide](docs/install/en.md).
+
+Language versions:
+
+| Language | Guide |
+|---|---|
+| English | [Install](docs/install/en.md) |
+| 简体中文 | [安装](docs/install/zh-CN.md) |
+| 日本語 | [インストール](docs/install/ja.md) |
+
 ## Quick examples
 
 Direct generation:
 
 ```text
-Use ja-ai-polish to write a Japanese Slack update.
+Use /ja-ai-polish to write a Japanese Slack update.
 Facts: the API fix is complete; load testing is pending; Sato owns it and will finish by Thursday.
 Return only the final message.
 ```
@@ -42,7 +61,7 @@ Return only the final message.
 De-AI edit:
 
 ```text
-Use ja-ai-polish to make this Japanese draft less templated.
+Use /ja-ai-polish to make this Japanese draft less templated.
 Preserve every number, product name, and commitment. Mode: edit; intensity: standard.
 
 [draft]
@@ -51,7 +70,7 @@ Preserve every number, product name, and commitment. Mode: edit; intensity: stan
 Diagnosis:
 
 ```text
-Use ja-ai-polish to diagnose this Japanese text. Do not rewrite it.
+Use /ja-ai-polish to diagnose this Japanese text. Do not rewrite it.
 ```
 
 ## Modes
@@ -107,23 +126,6 @@ then checked against that ledger. Missing information is asked for or left visib
 Provide 2–5 samples to calibrate sentence rhythm, register, subject omission, directness,
 punctuation, and the frequency of personal or evaluative language. The skill learns recurring
 traits only; it does not reuse sample facts or memorable phrases.
-
-## Install
-
-Paste this into Claude Code, Codex, or your favorite AI harness:
-
-> "Install this skill globally: https://github.com/BrambleXu/ja-ai-polish"
-
-For ChatGPT, Claude Code, Cursor, Hermes Agent, OpenClaw, and manual installation methods, see the
-[installation guide](docs/install/en.md).
-
-Language versions:
-
-| Language | Guide |
-|---|---|
-| English | [Install](docs/install/en.md) |
-| 简体中文 | [安装](docs/install/zh-CN.md) |
-| 日本語 | [インストール](docs/install/ja.md) |
 
 ## Evaluation status
 

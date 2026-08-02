@@ -28,12 +28,29 @@
 5. 作者样本优先于通用润色规则。
 6. 对每份生成稿或改写稿执行强制审计。
 
+## 安装
+
+Paste this into Claude Code, Codex, or your favorite AI harness:
+
+```text
+Install this skill globally: https://github.com/BrambleXu/ja-ai-polish
+```
+
+ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw 以及手动安装方式，见[安装文档](docs/install/zh-CN.md)。
+
+其他语言：
+
+| 语言 | 文档 |
+|---|---|
+| English | [Install](docs/install/en.md) |
+| 日本語 | [インストール](docs/install/ja.md) |
+
 ## 快速示例
 
 直接生成：
 
 ```text
-使用 ja-ai-polish 写一条日语 Slack 进度消息。
+使用 /ja-ai-polish 写一条日语 Slack 进度消息。
 事实：API 修复完成；负载测试还没做；佐藤负责，周四前完成。
 只返回成稿。
 ```
@@ -41,7 +58,7 @@
 去 AI 味改写：
 
 ```text
-使用 ja-ai-polish 改善下面的日语草稿，去除模板感。
+使用 /ja-ai-polish 改善下面的日语草稿，去除模板感。
 保留所有数字、产品名和承诺。模式：edit；强度：standard。
 
 [草稿]
@@ -50,7 +67,7 @@
 仅检测：
 
 ```text
-使用 ja-ai-polish 检查下面的日语，只标注问题，不要改写。
+使用 /ja-ai-polish 检查下面的日语，只标注问题，不要改写。
 ```
 
 ## write / edit / detect 模式
@@ -105,21 +122,6 @@
 
 提供 2～5 段样本后，Skill 会校准句子节奏、语体、主语省略、直接程度、标点和评价性语言
 的频率。只学习重复特征，不复用样本中的事实或标志性句子。
-
-## 安装
-
-Paste this into Claude Code, Codex, or your favorite AI harness:
-
-> “Install this skill globally: https://github.com/BrambleXu/ja-ai-polish”
-
-ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw 以及手动安装方式，见[安装文档](docs/install/zh-CN.md)。
-
-其他语言：
-
-| 语言 | 文档 |
-|---|---|
-| English | [Install](docs/install/en.md) |
-| 日本語 | [インストール](docs/install/ja.md) |
 
 ## 评测状态
 
