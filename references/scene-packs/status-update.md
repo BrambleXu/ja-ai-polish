@@ -8,6 +8,8 @@
 - **Personalization:** minimal; permit the author's normal concise voice.
 - **Protect:** completion state, incident severity, uncertainty, owners, deadlines, metrics, and
   decisions.
+- **Line integrity:** keep ordinary prose intact; retain separate status labels and action items when
+  they represent real categories, owners, or deadlines. Complete any sentence before a list.
 
 ## Common failures and exceptions
 
@@ -27,4 +29,3 @@ an unconfirmed cause into fact.
 
 Each status and uncertainty level matches the input, and every stated next step has its known owner
 and deadline.
-

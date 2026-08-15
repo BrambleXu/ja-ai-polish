@@ -7,6 +7,8 @@
 - **Structure:** one compact paragraph or short bullets when multiple actions exist.
 - **Personalization:** low to moderate; preserve the author's emoji and punctuation habits.
 - **Protect:** owners, deadlines, blockers, links, channel references, and decision status.
+- **Line integrity:** keep a sentence on one physical line; use separate lines only for independent
+  actions, owners, deadlines, or user-requested message formatting.
 
 ## Common failures and exceptions
 
@@ -25,4 +27,3 @@ owners or actions.
 ## Acceptance
 
 The message states what happened, what is needed, who acts, and when, at a length suitable for chat.
-

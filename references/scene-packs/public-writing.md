@@ -9,6 +9,9 @@
 - **Personalization:** preserve existing warmth and opinion; add none without evidence.
 - **Protect:** claims, anecdotes, chronology, people, quotations, uncertainty, and the author's actual
   position.
+- **Line integrity:** keep ordinary prose paragraphs on one physical line and avoid dramatic fragment
+  breaks. Preserve literary or voice-specific lineation only when the user requests it or samples
+  establish it as intentional.
 
 ## Common failures and exceptions
 
@@ -29,4 +32,3 @@ answers concretely.
 
 The author's actual position and temperature remain recognizable, every detail is grounded, and
 the ending says something specific.
-

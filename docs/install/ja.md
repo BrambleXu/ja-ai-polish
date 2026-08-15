@@ -1,12 +1,5 @@
 # ja-ai-polish のインストール
 
-[English](en.md) | [简体中文](zh-CN.md)
-
-確認日：2026-08-02。[ChatGPT Skills 公式ガイド](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/)、
-[Claude Code Skills 公式ガイド](https://code.claude.com/docs/en/skills)、[Cursor Agent Skills 公式ガイド](https://cursor.com/docs/skills)、
-[Hermes Agent Skills 公式ガイド](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)、
-[OpenClaw Skills 公式ガイド](https://docs.openclaw.ai/skills)に基づきます。
-
 ## 目次
 
 - [1. 簡単なインストール](#1-簡単なインストール)
@@ -155,3 +148,8 @@ detect の結果には観察可能な根拠と安定した `JA-*` ルール ID �
 - 確認済みのソース、バージョンタグ、リリースアーカイブだけをインストールまたはアップロードしてください。Skill には指示やコードを含められるため、
   プラットフォームのスキャンだけでは不十分です。
 - Skill の実行時に秘密情報、ネットワーク接続、第三者依存は必要ありません。入口と参照されたランタイムファイルだけを読み込みます。
+
+確認日：2026-08-02。[ChatGPT Skills 公式ガイド](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/)、
+[Claude Code Skills 公式ガイド](https://code.claude.com/docs/en/skills)、[Cursor Agent Skills 公式ガイド](https://cursor.com/docs/skills)、
+[Hermes Agent Skills 公式ガイド](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)、
+[OpenClaw Skills 公式ガイド](https://docs.openclaw.ai/skills)に基づきます。

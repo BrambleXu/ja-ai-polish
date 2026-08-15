@@ -9,6 +9,9 @@
 - **Personalization:** restrained maintainer voice; no customer-service praise.
 - **Protect:** code, commands, paths, errors, versions, issue/PR numbers, API names, and compatibility
   statements.
+- **Line integrity:** keep ordinary explanatory prose on one physical line; preserve headings,
+  templates, checklists, diffs, logs, commands, and code blocks. A block must not finish a sentence
+  that starts in the preceding prose.
 
 ## Common failures and exceptions
 
@@ -28,4 +31,3 @@ should foreground changes, verification, limits, and compatibility.
 
 Technical tokens remain exact, the maintenance state is explicit, and the reader knows the next
 step without promotional filler.
-

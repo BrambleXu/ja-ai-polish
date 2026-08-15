@@ -15,6 +15,154 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = ("edit", "write", "detect", "false-positive", "scene", "fidelity", "voice")
 RULE_ID_RE = re.compile(r"JA-[A-Z]+-\d{3}")
+HEADING_RE = re.compile(r"^ {0,3}(#{1,6})(?:\s+|$)(.*)$")
+LIST_RE = re.compile(r"^ {0,3}(?:[-+*]|\d+[.)])\s+")
+PROSE_TERMINATORS = "。！？!?」』）)]}』"
+INCOMPLETE_LEAD_RE = re.compile(r"^(?:たとえば|例えば|その結果|一方で|一方|次に|具体的には)[、，,:：]?$|[、，,:：]$")
+BLOCK_SUFFIX_RE = re.compile(r"^(?:という|といった|などと|などです)")
+
+
+def _classified_lines(text: str) -> list[tuple[str, str]]:
+    """Classify source lines while treating fenced code as opaque."""
+    entries: list[tuple[str, str]] = []
+    in_fence = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if in_fence:
+            entries.append(("code", line))
+            if stripped.startswith("```"):
+                in_fence = False
+            continue
+        if stripped.startswith("```"):
+            entries.append(("fence", line))
+            in_fence = True
+        elif not stripped:
+            entries.append(("blank", line))
+        elif HEADING_RE.match(line):
+            entries.append(("heading", line))
+        elif LIST_RE.match(line):
+            entries.append(("list", line))
+        elif stripped.startswith(">"):
+            entries.append(("quote", line))
+        elif stripped.startswith("|") and "|" in stripped[1:]:
+            entries.append(("table", line))
+        elif re.match(r"^ {0,3}!?\[[^]]*\]\([^)]*\)\s*$", line):
+            entries.append(("image", line))
+        else:
+            entries.append(("prose", line))
+    return entries
+
+
+def _previous_nonblank(entries: list[tuple[str, str]], index: int) -> int | None:
+    cursor = index - 1
+    while cursor >= 0:
+        if entries[cursor][0] != "blank":
+            return cursor
+        cursor -= 1
+    return None
+
+
+def _next_nonblank(entries: list[tuple[str, str]], index: int) -> int | None:
+    cursor = index + 1
+    while cursor < len(entries):
+        if entries[cursor][0] != "blank":
+            return cursor
+        cursor += 1
+    return None
+
+
+def validate_line_integrity(text: str, contract: dict[str, object]) -> list[str]:
+    """Return stable cross-scene layout error codes."""
+    if not isinstance(contract, dict) or contract.get("enabled") is not True:
+        return []
+    entries = _classified_lines(text)
+    errors: list[str] = []
+    blank_run = 0
+    for index, (kind, line) in enumerate(entries):
+        if kind == "blank":
+            blank_run += 1
+            if blank_run > 1:
+                errors.append("excess-blank-lines")
+            continue
+        blank_run = 0
+        if kind != "prose":
+            continue
+        previous = index - 1
+        if previous >= 0 and entries[previous][0] == "prose":
+            previous_text = entries[previous][1].rstrip()
+            if previous_text.endswith(("、", "，", ",")):
+                errors.append("dangling-comma-break")
+            if not previous_text.endswith(tuple(PROSE_TERMINATORS)):
+                errors.append("wrapped-prose")
+
+    block_kinds = {"list", "quote", "table"}
+    for index, (kind, _line) in enumerate(entries):
+        if kind not in block_kinds:
+            continue
+        previous = _previous_nonblank(entries, index)
+        if previous is not None and entries[previous][0] == "prose":
+            lead = entries[previous][1].strip()
+            if INCOMPLETE_LEAD_RE.search(lead):
+                errors.append("incomplete-block-introduction")
+        following = _next_nonblank(entries, index)
+        if following is not None and entries[following][0] == "prose":
+            suffix = entries[following][1].strip()
+            if BLOCK_SUFFIX_RE.match(suffix):
+                errors.append("block-suffix-continuation")
+    return list(dict.fromkeys(errors))
+
+
+def validate_article_markdown(text: str, contract: dict[str, object]) -> list[str]:
+    """Return stable technical-article Markdown error codes."""
+    if not isinstance(contract, dict) or contract.get("complete_article") is not True:
+        return []
+    entries = _classified_lines(text)
+    errors: list[str] = []
+    headings: list[tuple[int, int]] = []
+    first_nonempty: int | None = None
+    for index, (kind, line) in enumerate(entries):
+        if kind in {"blank", "code", "fence"}:
+            continue
+        if first_nonempty is None:
+            first_nonempty = index
+        if kind == "heading":
+            match = HEADING_RE.match(line)
+            assert match is not None
+            headings.append((index, len(match.group(1))))
+    h1_count = sum(level == 1 for _index, level in headings)
+    if h1_count == 0:
+        errors.append("missing-h1")
+    if h1_count > 1:
+        errors.append("multiple-h1")
+    if first_nonempty is not None and (not headings or headings[0][0] != first_nonempty or headings[0][1] != 1):
+        errors.append("h1-not-first")
+    seen_h2 = False
+    previous_heading = False
+    previous_heading_level: int | None = None
+    for _index, level in headings:
+        if level == 2:
+            seen_h2 = True
+        if level == 3 and not seen_h2:
+            errors.append("orphan-h3")
+        if level >= 4:
+            errors.append("heading-too-deep")
+        if previous_heading and previous_heading_level != 1:
+            errors.append("empty-heading-chain")
+        previous_heading = True
+        previous_heading_level = level
+        # The next non-heading content resets the chain; handled in a second pass below.
+        cursor = _index + 1
+        while cursor < len(entries) and entries[cursor][0] == "blank":
+            cursor += 1
+        if cursor < len(entries) and entries[cursor][0] not in {"heading", "blank"}:
+            previous_heading = False
+    if contract.get("artifact_only") is True:
+        prefix = text.lstrip().splitlines()
+        if prefix and prefix[0].strip().startswith("```"):
+            errors.append("artifact-wrapper-present")
+        if re.search(r"(?:以下は(?:成稿|完成稿)|Here(?: is| are) the|以下の文章)", text, re.IGNORECASE):
+            errors.append("artifact-wrapper-present")
+    return list(dict.fromkeys(errors))
 
 
 def parse_args() -> argparse.Namespace:
@@ -79,7 +227,17 @@ def deterministic_expectations(
         input_data = case.get("input", {})
         if isinstance(input_data, dict) and isinstance(input_data.get("text"), str):
             required.append(str(input_data["text"]))
-    for key in ("must_not_invent", "avoid", "reason", "register", "structure", "voice", "traits"):
+    for key in (
+        "must_not_invent",
+        "avoid",
+        "reason",
+        "register",
+        "structure",
+        "voice",
+        "traits",
+        "line_integrity",
+        "article_markdown",
+    ):
         if key in expected:
             manual.append(f"Review expectation `{key}`: {expected[key]}")
     return required, forbidden, manual
@@ -133,6 +291,14 @@ def score(cases: list[dict[str, object]], raw: list[dict[str, object]]) -> dict[
         present_forbidden = [value for value in forbidden if value in output]
         expected = case["expected"]
         assert isinstance(expected, dict)
+        line_integrity_errors: list[str] = []
+        article_markdown_errors: list[str] = []
+        line_contract = expected.get("line_integrity")
+        if isinstance(line_contract, dict):
+            line_integrity_errors = validate_line_integrity(output, line_contract)
+        article_contract = expected.get("article_markdown")
+        if isinstance(article_contract, dict):
+            article_markdown_errors = validate_article_markdown(output, article_contract)
         expected_rules = {str(value) for value in expected.get("rules", [])}
         observed_rules = set(RULE_ID_RE.findall(output))
         missing_rules: list[str] = []
@@ -155,7 +321,14 @@ def score(cases: list[dict[str, object]], raw: list[dict[str, object]]) -> dict[
                 manual.append(f"Record observed `{key}` and compare with {expected[key]!r}.")
         status = (
             "pass"
-            if not missing and not present_forbidden and not missing_rules and not unexpected_rules
+            if (
+                not missing
+                and not present_forbidden
+                and not missing_rules
+                and not unexpected_rules
+                and not line_integrity_errors
+                and not article_markdown_errors
+            )
             else "fail"
         )
         if metadata_mismatches:
@@ -168,6 +341,8 @@ def score(cases: list[dict[str, object]], raw: list[dict[str, object]]) -> dict[
                 "forbidden_present": present_forbidden,
                 "missing_rule_ids": missing_rules,
                 "unexpected_rule_ids": unexpected_rules,
+                "line_integrity_errors": line_integrity_errors,
+                "article_markdown_errors": article_markdown_errors,
                 "metadata_mismatches": metadata_mismatches,
                 "manual_checks": manual,
                 "human_review_required": bool(manual),

@@ -1,12 +1,5 @@
 # Install ja-ai-polish
 
-[简体中文](zh-CN.md) | [日本語](ja.md)
-
-Last verified: 2026-08-02 against the [ChatGPT Skills guide](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/),
-[Claude Code Skills guide](https://code.claude.com/docs/en/skills), [Cursor Agent Skills guide](https://cursor.com/docs/skills),
-[Hermes Agent Skills guide](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills), and
-[OpenClaw Skills guide](https://docs.openclaw.ai/skills).
-
 ## Contents
 
 - [1. Quick install](#1-quick-install)
@@ -170,3 +163,8 @@ names, numbers, dates, code, links, and uncertainty.
   instructions and code, so platform scanning does not replace your own review.
 - The Skill runtime needs no secret, network call, or third-party dependency. It reads only the
   Skill entrypoint and referenced runtime files.
+
+Last verified: 2026-08-02 against the [ChatGPT Skills guide](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/),
+[Claude Code Skills guide](https://code.claude.com/docs/en/skills), [Cursor Agent Skills guide](https://cursor.com/docs/skills),
+[Hermes Agent Skills guide](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills), and
+[OpenClaw Skills guide](https://docs.openclaw.ai/skills).

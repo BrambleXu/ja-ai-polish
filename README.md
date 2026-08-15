@@ -23,7 +23,8 @@ and does not optimize for detector evasion.
 ## Suitable scope
 
 Use it for work email, Slack or Teams messages, social posts, status updates, repository
-maintenance, Qiita/Zenn articles, tutorials, blogs, note posts, and community writing.
+maintenance, Qiita/Zenn articles, tutorials, blogs, note posts, and community writing. It also
+removes AI-like physical line breaks across these scenes while preserving intentional formatting.
 
 ## Core principles
 
@@ -102,6 +103,7 @@ uses `bounded`, which lists possible full-sentence deletions instead of silently
 | Formulaic ending | End on an existing result, limit, decision, or next step | `今後の発展が期待されます` → state the known plan |
 | Translationese or grand metaphor | Name the concrete actor and action | `重要な役割を果たす` → state what it does |
 | Uniform sentence rhythm | Regroup information where meaning permits | four matching `〜です` sentences → natural variation |
+| Unnatural line breaks or block-split sentences | Join ordinary prose and complete the lead around a useful block | a sentence split after `、` or `たとえば、` → one complete paragraph or lead sentence |
 | Missing specificity or stance | Use supplied actors, conditions, measures, and choices | `総合的に判断することが重要` → state the choice |
 | Mechanical empathy | Respond to the concrete issue at the right distance | `素晴らしい質問ですね` → answer directly |
 
@@ -117,7 +119,7 @@ missing support, and other signals combine. See [the complete pattern rules](ref
 | Social post | grounded updates or opinions without engagement bait |
 | Status update | completed work, blockers, risk, owners, next steps |
 | Repository maintenance | reproducibility, verification, compatibility, contributor action |
-| Technical article | technical accuracy, evidence, limits, executable detail |
+| Technical article | technical accuracy, evidence, limits, executable detail, publishable Markdown headings |
 | Public writing | grounded author voice and non-formulaic structure |
 
 ## Fidelity guarantee

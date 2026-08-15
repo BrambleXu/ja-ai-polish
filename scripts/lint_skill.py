@@ -199,6 +199,7 @@ def check_rules(errors: list[str]) -> None:
         "JA-SPECIFICITY",
         "JA-STANCE",
         "JA-EMPATHY",
+        "JA-LAYOUT",
     }
     if categories != expected:
         fail(errors, f"references/de-ai-patterns.md: category mismatch: {sorted(categories)}")
@@ -325,6 +326,50 @@ def check_evals(errors: list[str]) -> None:
         fail(errors, f"eval counts: expected {EXPECTED_EVAL_COUNTS}, got {dict(counts)}")
     if len(data) != 88:
         fail(errors, f"evals/evals.json: expected 88 cases, got {len(data)}")
+    scenes = {
+        "work-email",
+        "chat-message",
+        "social-post",
+        "status-update",
+        "repo-maintenance",
+        "technical-article",
+        "public-writing",
+    }
+    scene_cases = [case for case in data if case.get("category") == "scene"]
+    for case in scene_cases:
+        case_id = str(case.get("id"))
+        input_data = case.get("input")
+        expected = case.get("expected")
+        if not isinstance(input_data, dict) or not isinstance(expected, dict):
+            continue
+        contract = expected.get("line_integrity")
+        if not isinstance(contract, dict):
+            fail(errors, f"{case_id}: scene case must define line_integrity")
+            continue
+        if contract.get("enabled") is not True:
+            fail(errors, f"{case_id}: line_integrity.enabled must be true")
+        scene = contract.get("scene")
+        if scene not in scenes:
+            fail(errors, f"{case_id}: unsupported line_integrity scene {scene!r}")
+        if input_data.get("scene") in scenes and scene != input_data.get("scene"):
+            fail(errors, f"{case_id}: line_integrity scene does not match input scene")
+        for key in ("allow_intentional_line_breaks", "semantic_review"):
+            if not isinstance(contract.get(key), bool):
+                fail(errors, f"{case_id}: line_integrity.{key} must be boolean")
+        article = expected.get("article_markdown")
+        if article is not None:
+            if scene != "technical-article" or not isinstance(article, dict):
+                fail(errors, f"{case_id}: article_markdown is only valid for technical-article")
+            else:
+                for key in ("complete_article", "artifact_only", "semantic_structure_review"):
+                    if not isinstance(article.get(key), bool):
+                        fail(errors, f"{case_id}: article_markdown.{key} must be boolean")
+                if article.get("next_action") not in {"publish", "copy", "collaborative-edit", "review"}:
+                    fail(errors, f"{case_id}: unsupported article_markdown.next_action")
+                if article.get("next_action") in {"publish", "copy"} and article.get("artifact_only") is not True:
+                    fail(errors, f"{case_id}: publish/copy article must be artifact_only")
+        elif scene == "technical-article" and case_id in {"scene-011", "scene-012"}:
+            fail(errors, f"{case_id}: technical article scene case missing article_markdown")
 
 
 def check_git_isolation(errors: list[str]) -> None:

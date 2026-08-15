@@ -9,6 +9,8 @@
 - **Personalization:** restrained; use only relationship-appropriate warmth already requested.
 - **Protect:** names, company names, dates, commitments, owners, prices, attachments, and apology
   scope.
+- **Line integrity:** keep each ordinary paragraph on one physical line; preserve real breaks between
+  greeting, body, close, and signature. Repair a sentence that depends on a list before or after it.
 
 ## Common failures and exceptions
 
@@ -28,4 +30,3 @@ official notice or a customer reply into casual chat.
 
 The recipient can identify the purpose, their action, owner, and deadline without inferring them.
 Politeness remains appropriate and no commitment changes.
-

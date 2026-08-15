@@ -33,3 +33,17 @@ return `final_text`.
 
 Return only the Japanese result, without a heading. Still perform all internal audits.
 
+## Next-action output
+
+Choose the output envelope from the user's explicit request first, then from the next action:
+
+- `publish` or `copy`: return only the target artifact. Start with the artifact itself; do not add a
+  preface, notes, an `##` wrapper, or an outer code fence.
+- `collaborative-edit`: return the edited artifact and, when useful, brief edit notes outside it.
+- `review`: return a concise diagnosis; include an edited artifact only when requested.
+
+For a complete `technical-article` Markdown artifact, the artifact itself must begin with its single
+`#` title. This Markdown heading requirement does not apply to other scenes. In every scene, apply
+the global layout integrity gate: keep ordinary prose lines intact and keep block-boundary sentences
+grammatically complete. Preserve real scene boundaries, templates, lists, code, and user-requested
+social formatting.

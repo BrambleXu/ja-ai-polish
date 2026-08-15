@@ -1,12 +1,5 @@
 # 安装 ja-ai-polish
 
-[English](en.md) | [日本語](ja.md)
-
-核对日期：2026-08-02。依据 [ChatGPT Skills 官方文档](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/)、
-[Claude Code Skills 官方文档](https://code.claude.com/docs/en/skills)、[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)、
-[Hermes Agent Skills 官方文档](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)和
-[OpenClaw Skills 官方文档](https://docs.openclaw.ai/skills)。
-
 ## 目录
 
 - [1. 快速安装](#1-快速安装)
@@ -150,3 +143,8 @@ detect 输出应报告可观察证据和稳定的 `JA-*` 规则 ID，不应判�
 - 未触发时，使用 `/ja-ai-polish`，或显式写出 `ja-ai-polish` 并附上日语文本或 brief。
 - 只安装或上传经过检查的源码、版本标签或发布压缩包。Skill 可能包含指令和代码，平台扫描不能替代自己的检查。
 - Skill 运行时不需要密钥、网络调用或第三方依赖，只读取 Skill 入口和引用的运行时文件。
+
+核对日期：2026-08-02。依据 [ChatGPT Skills 官方文档](https://help.openai.com/en/articles/20001066-skills-in-chatgpt/)、
+[Claude Code Skills 官方文档](https://code.claude.com/docs/en/skills)、[Cursor Agent Skills 官方文档](https://cursor.com/docs/skills)、
+[Hermes Agent Skills 官方文档](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)和
+[OpenClaw Skills 官方文档](https://docs.openclaw.ai/skills)。

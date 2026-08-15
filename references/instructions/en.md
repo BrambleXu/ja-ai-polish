@@ -83,6 +83,12 @@ Delete an unsupported evaluation or generic closing shell instead of paraphrasin
 fact embedded in that sentence as a direct statement. Remove a short text's meta-introduction
 instead of changing `解説します` to `説明します／お伝えします`.
 
+Apply the global layout integrity gate while generating or editing: keep ordinary prose on one
+physical line, and make any sentence before or after a list, quote, or table grammatically complete.
+Preserve real scene boundaries, templates, code, and user-requested social formatting. When the
+scene is `technical-article` and the user requests a complete Markdown article, also load its
+H1/H2/H3 contract; do not apply that heading contract to other scenes.
+
 For `detect`, return evidence, severity, rule ID, explanation, and suggestion. Return no rewritten
 draft and make no authorship claim.
 
@@ -98,13 +104,18 @@ Compare the draft with the ledger:
 - register, scene constraints, and all authorized or bounded deletions.
 
 Treat completion, release, or a passed test as status, not evidence of effectiveness or value. Then
-run the residual de-AI audit. Recheck paragraphs at `5+` and repair only safe discrepancies.
+run the layout integrity gate and residual de-AI audit. Recheck paragraphs at `5+` and repair only
+safe discrepancies. Confirm that joining a line did not erase a real scene boundary or protected
+value.
 
 **Complete when:** no protected value or relation drift remains and no unexplained paragraph scores
 5 or more.
 
 ## F09 — Render
 
-Use the localized output contract. Omit notes only when the user asked for final text alone.
+Use the localized output contract and the user's next action. For `publish` or `copy`, return only the
+artifact; for `collaborative-edit` or `review`, brief commentary may appear outside the artifact.
+For a complete `technical-article` Markdown artifact, begin with its single `#` title and use the
+scene-specific H2/H3 contract. Other scenes do not inherit those heading rules.
 
 **Complete when:** all headings and explanations are English and the target text remains Japanese.
