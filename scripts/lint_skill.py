@@ -18,11 +18,11 @@ EXPECTED_INSTALL_DOCS = {
 }
 SUPPORTED_PROMPT_LANGUAGES = {"en", "ja"}
 EXPECTED_EVAL_COUNTS = {
-    "edit": 26,
+    "edit": 32,
     "write": 9,
-    "false-positive": 21,
+    "false-positive": 25,
     "scene": 16,
-    "fidelity": 12,
+    "fidelity": 13,
     "voice": 8,
 }
 FLOW_IDS = [f"F{number:02d}" for number in range(1, 10)]
@@ -194,6 +194,7 @@ def check_rules(errors: list[str]) -> None:
         "JA-META",
         "JA-CLOSING",
         "JA-TRANSLATION",
+        "JA-USAGE",
         "JA-RHYTHM",
         "JA-SPECIFICITY",
         "JA-STANCE",
@@ -308,8 +309,8 @@ def check_evals(errors: list[str]) -> None:
             fail(errors, f"{case_id}: unsupported license marker")
     if dict(counts) != EXPECTED_EVAL_COUNTS:
         fail(errors, f"eval counts: expected {EXPECTED_EVAL_COUNTS}, got {dict(counts)}")
-    if len(data) != 92:
-        fail(errors, f"evals/evals.json: expected 92 cases, got {len(data)}")
+    if len(data) != 103:
+        fail(errors, f"evals/evals.json: expected 103 cases, got {len(data)}")
     scenes = {
         "work-email",
         "chat-message",
@@ -400,7 +401,7 @@ def main() -> int:
     if errors:
         print("\n".join(f"ERROR: {message}" for message in errors))
         return 1
-    print("OK: skill, references, docs, links, and 92 eval cases are consistent")
+    print("OK: skill, references, docs, links, and 103 eval cases are consistent")
     return 0
 
 

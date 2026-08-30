@@ -4,6 +4,9 @@
 - **Audience:** coworkers, managers, vendors, customers, and other external business contacts.
 - **Register:** choose honorific level from the relationship; keep formal external mail formal and
   internal mail practical.
+- **Usage fit:** prefer conventional business-Japanese collocations for the relationship. Keep
+  external honorific formulas when they perform relationship work; do not carry chat shorthand into
+  formal mail or external-mail formulas into a practical internal note.
 - **Information order:** purpose → necessary context → requested action → deadline/next step.
 - **Structure:** subject when requested, brief greeting, body, concrete close.
 - **Personalization:** restrained; use only relationship-appropriate warmth already requested.

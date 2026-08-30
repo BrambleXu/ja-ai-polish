@@ -3,6 +3,8 @@
 - **Goal:** enable quick coordination without losing the context needed to act.
 - **Audience:** coworkers and project collaborators in Slack, Teams, Chatwork, or similar channels.
 - **Register:** concise conversational business Japanese; match the channel and relationship.
+- **Usage fit:** prefer ordinary coordination verbs and compact requests. Replace letter-style or
+  ceremonial formulas only when the channel and relationship do not justify them.
 - **Information order:** context → current state or conclusion → requested action → reply need/time.
 - **Structure:** one compact paragraph or short bullets when multiple actions exist.
 - **Personalization:** low to moderate; preserve the author's emoji and punctuation habits.

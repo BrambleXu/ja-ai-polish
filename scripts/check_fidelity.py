@@ -103,7 +103,7 @@ def main() -> int:
         label = "supplied pair"
     else:
         errors = check_manifest()
-        label = "12 fidelity fixtures"
+        label = "13 fidelity fixtures"
     if errors:
         print("\n".join(f"ERROR: {message}" for message in errors))
         return 1

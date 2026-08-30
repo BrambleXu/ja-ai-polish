@@ -46,15 +46,16 @@ result. Leave an explicit placeholder when the user declines.
 
 ## F05 — Diagnose
 
-Apply the pattern score and False Positive Gate paragraph by paragraph. In `write`, use the score
-after the first draft.
+Apply the naturalness and scene-fit gate, then the pattern score and False Positive Gate paragraph
+by paragraph. In `write`, run them after the first draft.
 
 - `0–2`: keep.
 - `3–4`: report in `detect`; keep in standard `edit`; allow a careful aggressive edit.
 - `5+`: rewrite candidate, still gated by scene, voice, and fidelity.
 
-Confirm density, position, function, scene fit, and edit cost. A single phrase is weak evidence.
-Keep already-good Japanese.
+Confirm density, position, function, scene fit, and edit cost. A single phrase is weak evidence
+unless `JA-USAGE-001` has both a contextual mismatch and a proposition-equivalent idiomatic
+alternative. Keep already-good Japanese.
 
 **Complete when:** every proposed change has observable evidence and a stable rule ID, and every
 false-positive candidate has been tested.
@@ -83,6 +84,10 @@ Delete an unsupported evaluation or generic closing shell instead of paraphrasin
 fact embedded in that sentence as a direct statement. Remove a short text's meta-introduction
 instead of changing `解説します` to `説明します／お伝えします`.
 
+Apply high-confidence `JA-USAGE-001` findings directly in `write` and `edit`. Replace only the
+smallest scene-mismatched phrase, preserve the proposition and register, and introduce no action or
+experience absent from the ledger.
+
 Apply the global layout integrity gate while generating or editing: keep ordinary prose on one
 physical line, and make any sentence before or after a list, quote, or table grammatically complete.
 Preserve real scene boundaries, templates, code, and user-requested social formatting. When the
@@ -104,9 +109,9 @@ Compare the draft with the ledger:
 - register, scene constraints, and all authorized or bounded deletions.
 
 Treat completion, release, or a passed test as status, not evidence of effectiveness or value. Then
-run the layout integrity gate and residual de-AI audit. Recheck paragraphs at `5+` and repair only
-safe discrepancies. Confirm that joining a line did not erase a real scene boundary or protected
-value.
+run the naturalness and scene-fit gate, layout integrity gate, and residual de-AI audit. Recheck
+paragraphs at `5+` and repair only safe discrepancies. Confirm that a usage edit did not invent an
+action or experience, and that joining a line did not erase a real scene boundary or protected value.
 
 **Complete when:** no protected value or relation drift remains and no unexplained paragraph scores
 5 or more.

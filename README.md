@@ -3,7 +3,7 @@
 ![ja-ai-polish — Make Japanese Sound Natural](assets/ja-ai-polish-banner-en.png)
 
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-ja--ai--polish-635BFF?style=flat-square)](SKILL.md)
-[![Eval cases: 92](https://img.shields.io/badge/eval%20cases-92-0EA5E9?style=flat-square)](evals/evals.json)
+[![Eval cases: 103](https://img.shields.io/badge/eval%20cases-103-0EA5E9?style=flat-square)](evals/evals.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2EA44F?style=flat-square)](LICENSE)
 
 [English](README.md) · [日本語](README.ja.md)
@@ -95,17 +95,18 @@ uses `bounded`, which lists possible full-sentence deletions instead of silently
 
 | Signal | Default action | Example 1 | Example 2 |
 |---|---|---|---|
-| Wordy grammar or nominalization | Restore a direct verb without lowering required formality | `確認を行います。` → `確認します。` | `データの分析を実施します。` → `データを分析します。` |
-| Unsupported evaluation | Use an existing result, metric, or consequence; otherwise flag the gap | `処理時間が20%短くなり、非常に効果的です。` → `処理時間は20%短くなりました。` | `テストは50件すべて通過し、非常に優れた結果でした。` → `テストは50件すべて通過しました。` |
-| Vague judgment or responsibility avoidance | State known conditions, judgment, or next action | `どちらを使うかはケースバイケースです。社内向けはA、社外向けはBを使います。` → `社内向けはA、社外向けはBを使います。` | `多くのエラーが発生し、件数は128件でした。` → `エラーが128件発生しました。` |
-| Excess transitions | Remove connectors without a logical job | `速度が上がりました。さらに、メモリ使用量も減りました。` → `速度が上がり、メモリ使用量も減りました。` | `設定は簡単です。また、導入費用は無料です。` → `設定は簡単で、導入費用は無料です。` |
-| Article navigation and reader management | Enter the content directly | `本記事ではNode.js 24とNode.js 22を比較します。` → `Node.js 24とNode.js 22を比較します。` | `本記事ではAPI v3.2の認証方法を比較します。` → `API v3.2の認証方法を比較します。` |
-| Formulaic ending | End on an existing result, limit, decision, or next step | `次はWindows 11で検証する予定です。今後の発展が期待されます。` → `次はWindows 11で検証する予定です。` | `macOSでの検証は完了しました。ぜひ参考にしてください。` → `macOSでの検証は完了しました。` |
-| Translationese or grand metaphor | Name the concrete actor and action | `キャッシュはDB負荷の軽減に重要な役割を果たします。` → `キャッシュはDB負荷を軽減します。` | `再ログインなしで画面を移動でき、シームレスな体験を実現します。` → `再ログインせずに画面を移動できます。` |
-| Uniform sentence rhythm | Regroup information where meaning permits | `設定は簡単です。起動は速いです。料金は月額500円です。無料枠もあります。` → `設定は簡単で、起動も速いです。料金は月額500円で、無料枠もあります。` | `検索は速いです。設定は簡単です。料金は無料です。広告はありません。` → `検索は速く、設定も簡単です。料金は無料で、広告もありません。` |
-| Unnatural line breaks or block-split sentences | Join ordinary prose and complete the lead around a useful block | `LLMに任せるより、\n**自分で書く**\nほうが合います。` → `LLMに任せるより、**自分で書く**ほうが合います。` | ``この方法なら、\n`npm test`\nを実行できます。`` → ``この方法なら、`npm test`を実行できます。`` |
-| Missing specificity or stance | Use supplied actors, conditions, measures, and choices | `今回はAを選びます。総合的に判断することが重要です。` → `今回はAを選びます。` | `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びますが、どちらにもメリットとデメリットがあります。` → `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びます。` |
-| Mechanical empathy | Respond to the concrete issue at the right distance | `素晴らしい質問ですね。上限は100件です。` → `上限は100件です。` | `興味深い観点です。原因は接続タイムアウトでした。` → `原因は接続タイムアウトでした。` |
+| Wordy grammar or nominalization | Restore a direct verb without lowering required formality | Work email: `確認を行います。` → `確認します。` | Status update: `データの分析を実施します。` → `データを分析します。` |
+| Unsupported evaluation | Use an existing result, metric, or consequence; otherwise flag the gap | Technical blog: `処理時間が20%短くなり、非常に効果的です。` → `処理時間は20%短くなりました。` | Pull request: `テストは50件すべて通過し、非常に優れた結果でした。` → `テストは50件すべて通過しました。` |
+| Vague judgment or responsibility avoidance | State known conditions, judgment, or next action | Slack: `どちらを使うかはケースバイケースです。社内向けはA、社外向けはBを使います。` → `社内向けはA、社外向けはBを使います。` | Status update: `多くのエラーが発生し、件数は128件でした。` → `エラーが128件発生しました。` |
+| Excess transitions | Remove connectors without a logical job | Technical blog: `速度が上がりました。さらに、メモリ使用量も減りました。` → `速度が上がり、メモリ使用量も減りました。` | Product page: `設定は簡単です。また、導入費用は無料です。` → `設定は簡単で、導入費用は無料です。` |
+| Article navigation and reader management | Enter the content directly | Technical blog: `本記事ではNode.js 24とNode.js 22を比較します。` → `Node.js 24とNode.js 22を比較します。` | README: `本記事ではAPI v3.2の認証方法を比較します。` → `API v3.2の認証方法を比較します。` |
+| Formulaic ending | End on an existing result, limit, decision, or next step | Technical blog: `次はWindows 11で検証する予定です。今後の発展が期待されます。` → `次はWindows 11で検証する予定です。` | Release notes: `macOSでの検証は完了しました。ぜひ参考にしてください。` → `macOSでの検証は完了しました。` |
+| Translationese or grand metaphor | Name the concrete actor and action | Technical blog: `キャッシュはDB負荷の軽減に重要な役割を果たします。` → `キャッシュはDB負荷を軽減します。` | Product page: `再ログインなしで画面を移動でき、シームレスな体験を実現します。` → `再ログインせずに画面を移動できます。` |
+| Unidiomatic or scene-mismatched usage | Use an idiomatic collocation and register for the selected scene without adding experience | Technical blog: `原因を探すため、ログを観察しました。` → `原因を調べるため、ログを確認しました。` | Slack: `本件につきまして、ご確認のほどよろしくお願い申し上げます。` → `この件、確認をお願いします。` |
+| Uniform sentence rhythm | Regroup information where meaning permits | Product page: `設定は簡単です。起動は速いです。料金は月額500円です。無料枠もあります。` → `設定は簡単で、起動も速いです。料金は月額500円で、無料枠もあります。` | README: `検索は速いです。設定は簡単です。料金は無料です。広告はありません。` → `検索は速く、設定も簡単です。料金は無料で、広告もありません。` |
+| Unnatural line breaks or block-split sentences | Join ordinary prose and complete the lead around a useful block | Technical blog: `LLMに任せるより、\n**自分で書く**\nほうが合います。` → `LLMに任せるより、**自分で書く**ほうが合います。` | README: ``この方法なら、\n`npm test`\nを実行できます。`` → ``この方法なら、`npm test`を実行できます。`` |
+| Missing specificity or stance | Use supplied actors, conditions, measures, and choices | Technical blog: `今回はAを選びます。総合的に判断することが重要です。` → `今回はAを選びます。` | Status update: `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びますが、どちらにもメリットとデメリットがあります。` → `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びます。` |
+| Mechanical empathy | Respond to the concrete issue at the right distance | Slack: `素晴らしい質問ですね。上限は100件です。` → `上限は100件です。` | Issue reply: `興味深い観点です。原因は接続タイムアウトでした。` → `原因は接続タイムアウトでした。` |
 
 These expressions are not banned. A rewrite is considered only when density, position, function,
 missing support, and other signals combine. See [the complete pattern rules](references/de-ai-patterns.md).
@@ -136,13 +137,14 @@ traits only; it does not reuse sample facts or memorable phrases.
 
 ## Evaluation status
 
-The repository contains 92 self-authored or redistributable evaluation cases: 26 de-AI edits,
-9 direct-generation cases, 21 false positives, 16 scene cases, 12 fidelity cases, and 8 voice
+The repository contains 103 self-authored or redistributable evaluation cases: 32 de-AI edits,
+9 direct-generation cases, 25 false positives, 16 scene cases, 13 fidelity cases, and 8 voice
 cases. Deterministic structure and fidelity checks run without an API key. Human blind-review
 scores will be published after the release evaluation is completed; no result is claimed early.
 See the [validation status and pending release gates](docs/validation.md).
 
-The Pattern map examples in this README were tested with `gpt-5.6-luna / medium`.
+The existing Pattern map examples were tested with `gpt-5.6-luna / medium`. The new
+`JA-USAGE-001` scene examples are pending the same forward test.
 
 ## Known limits
 
