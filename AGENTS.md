@@ -15,7 +15,7 @@
   `description`.
 - Keep product UI metadata in `agents/openai.yaml`. Keep detailed runtime behavior in
   `references/` and load it progressively from `SKILL.md`.
-- Keep the localized flows in `references/instructions/en.md`, `zh-CN.md`, and `ja.md` semantically
+- Keep the localized flows in `references/instructions/en.md` and `ja.md` semantically
   aligned. Preserve the stable `F01`–`F09` step IDs.
 - Treat `references/de-ai-patterns.md`, `references/fidelity-contract.md`,
   `references/protected-spans.md`, and `references/voice-calibration.md` as behavioral contracts,
@@ -37,8 +37,8 @@
 
 ## Public and internal documentation
 
-- Keep `README.md`, `README.zh-CN.md`, and `README.ja.md` structurally and semantically aligned.
-- Keep all 5 platform × 3 language installation documents aligned. Verify commands and paths
+- Keep `README.md` and `README.ja.md` structurally and semantically aligned.
+- Keep all 5 platform × 2 language installation documents aligned. Verify commands and paths
   against current official platform documentation and retain the verification date.
 - Treat `docs/` as public OSS documentation. Treat the developer-material directory excluded by the
   root `.gitignore` as local-only: do not link to it from public files, track it in Git, or include

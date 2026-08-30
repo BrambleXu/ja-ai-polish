@@ -4,7 +4,7 @@
 
 **自然な日本語に整えます。事実・文体・意図を守ります。**
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+[English](README.md) · [日本語](README.ja.md)
 
 </div>
 
@@ -50,7 +50,6 @@ ChatGPT、Claude Code、Cursor、Hermes Agent、OpenClaw、および手動イン
 | 言語 | ガイド |
 |---|---|
 | English | [Install](docs/install/en.md) |
-| 简体中文 | [安装](docs/install/zh-CN.md) |
 
 ## すぐに試す
 

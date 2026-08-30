@@ -4,7 +4,7 @@
 
 **Write natural Japanese. Preserve facts, voice, and intent.**
 
-[English](README.md) · [简体中文](README.zh-CN.md) · [日本語](README.ja.md)
+[English](README.md) · [日本語](README.ja.md)
 
 </div>
 
@@ -51,7 +51,6 @@ Language versions:
 | Language | Guide |
 |---|---|
 | English | [Install](docs/install/en.md) |
-| 简体中文 | [安装](docs/install/zh-CN.md) |
 | 日本語 | [インストール](docs/install/ja.md) |
 
 ## Quick examples

@@ -11,12 +11,11 @@ set of observable writing problems, never as proof of authorship.
 ## Route the request
 
 1. Select the instruction language.
-   - Honor an explicit `en`, `zh-CN`, or `ja` request.
+   - Honor an explicit `en` or `ja` request.
    - Otherwise use the main language of the user's request.
    - For a genuinely ambiguous mixed-language request, reuse the latest explicit conversation
      language or ask once.
-   - Load exactly one flow: [English](references/instructions/en.md),
-     [简体中文](references/instructions/zh-CN.md), or
+   - Load exactly one flow: [English](references/instructions/en.md) or
      [日本語](references/instructions/ja.md).
 2. Select the mode.
    - `write`: a brief is present and no draft is supplied.
@@ -51,7 +50,7 @@ set of observable writing problems, never as proof of authorship.
   [voice calibration](references/examples/voice-calibration.md).
 
 After routing, use the selected localized file as the only primary workflow. Execute its
-`F01`–`F09` steps in order. Do not substitute an English workflow for the Chinese or Japanese file.
+`F01`–`F09` steps in order. Do not substitute an English workflow for the Japanese file.
 
 ## Keep these invariants
 

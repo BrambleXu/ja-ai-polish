@@ -14,9 +14,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_INSTALL_DOCS = {
     "en.md",
-    "zh-CN.md",
     "ja.md",
 }
+SUPPORTED_PROMPT_LANGUAGES = {"en", "ja"}
 EXPECTED_EVAL_COUNTS = {
     "edit": 26,
     "write": 9,
@@ -103,7 +103,7 @@ def check_flows(errors: list[str]) -> None:
         "bounded",
         "public-writing",
     }
-    for name in ("en.md", "zh-CN.md", "ja.md"):
+    for name in ("en.md", "ja.md"):
         path = ROOT / "references" / "instructions" / name
         text = path.read_text(encoding="utf-8")
         ids = re.findall(r"^## (F\d{2})\b", text, re.MULTILINE)
@@ -118,7 +118,7 @@ def check_output_formats(errors: list[str]) -> None:
     path = ROOT / "references" / "output-formats.md"
     text = path.read_text(encoding="utf-8")
     rows = re.findall(
-        r"^\| `([^`]+)` \| ([^|]+) \| ([^|]+) \| ([^|]+) \|$",
+        r"^\| `([^`]+)` \| ([^|]+) \| ([^|]+) \|$",
         text,
         re.MULTILINE,
     )
@@ -135,7 +135,6 @@ def check_skill_routes(errors: list[str]) -> None:
     targets = set(LINK_RE.findall(text))
     expected = {
         "references/instructions/en.md",
-        "references/instructions/zh-CN.md",
         "references/instructions/ja.md",
         "references/de-ai-patterns.md",
         "references/fidelity-contract.md",
@@ -215,7 +214,6 @@ def check_docs(errors: list[str]) -> None:
         fail(errors, f"docs/install: expected {sorted(EXPECTED_INSTALL_DOCS)}, got {sorted(actual)}")
     toc_headings = {
         "en.md": "Contents",
-        "zh-CN.md": "目录",
         "ja.md": "目次",
     }
     platform_terms = {
@@ -254,22 +252,6 @@ def check_readmes(errors: list[str]) -> None:
             "Evaluation status",
             "Known limits",
             "Contributing",
-            "License",
-        ],
-        "README.zh-CN.md": [
-            "功能",
-            "适用范围",
-            "核心原则",
-            "安装",
-            "快速示例",
-            "write / edit / detect 模式",
-            "模式地图",
-            "Scene Pack",
-            "忠实性保证",
-            "作者声音校准",
-            "评测状态",
-            "已知限制",
-            "贡献方式",
             "License",
         ],
         "README.ja.md": [
@@ -320,6 +302,8 @@ def check_evals(errors: list[str]) -> None:
             fail(errors, f"evals/evals.json: duplicate id {case_id}")
         ids.add(case_id)
         counts[case.get("category")] += 1
+        if case.get("prompt_language") not in SUPPORTED_PROMPT_LANGUAGES:
+            fail(errors, f"{case_id}: unsupported prompt language {case.get('prompt_language')!r}")
         if case.get("license") not in {"self-authored", "redistributable"}:
             fail(errors, f"{case_id}: unsupported license marker")
     if dict(counts) != EXPECTED_EVAL_COUNTS:
