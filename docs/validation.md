@@ -1,6 +1,6 @@
 # Validation status
 
-Last updated: 2026-08-01.
+Last updated: 2026-08-30.
 
 This page separates checks that are reproducible in the repository from release gates that still
 need an external platform or human reviewer. An unchecked gate is not a failed result, but no score
@@ -17,8 +17,8 @@ is claimed until the required evidence exists.
 | Evaluation manifests without an execution claim | Passed | `python3 scripts/run_evals.py --agent chatgpt --suite all` |
 | One-process-per-case external runner protocol and JSON/Markdown reports | Passed | `python3 -m unittest tests.test_scripts.ScriptTests.test_isolated_runner_saves_raw_results -v` |
 
-The evaluation corpus contains 88 base cases. The derived `detect` suite reuses 24 positive edit
-cases and 20 false-positive cases, producing 44 rule-ID classification cases without duplicating
+The evaluation corpus contains 92 base cases. The derived `detect` suite reuses 26 positive edit
+cases and 21 false-positive cases, producing 47 rule-ID classification cases without duplicating
 the source corpus.
 
 ## Release gates not yet claimed

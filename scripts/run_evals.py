@@ -20,6 +20,9 @@ LIST_RE = re.compile(r"^ {0,3}(?:[-+*]|\d+[.)])\s+")
 PROSE_TERMINATORS = "。！？!?」』）)]}』"
 INCOMPLETE_LEAD_RE = re.compile(r"^(?:たとえば|例えば|その結果|一方で|一方|次に|具体的には)[、，,:：]?$|[、，,:：]$")
 BLOCK_SUFFIX_RE = re.compile(r"^(?:という|といった|などと|などです)")
+TRAILING_INLINE_MARKUP_RE = re.compile(r"(?:\*\*|__|~~|\*|_|`+)$")
+LEADING_INLINE_MARKUP_RE = re.compile(r"^(?:\*\*|__|~~|\*|_|`+)")
+PROSE_CONTINUATION_RE = re.compile(r"^(?:くらい|という|といった|など|ため|ので|のが|こと|もの|よう)")
 
 
 def _classified_lines(text: str) -> list[tuple[str, str]]:
@@ -71,6 +74,26 @@ def _next_nonblank(entries: list[tuple[str, str]], index: int) -> int | None:
     return None
 
 
+def _visible_prose_end(line: str) -> str:
+    """Remove closing inline Markdown markers before checking sentence punctuation."""
+    visible = line.rstrip()
+    while True:
+        updated = TRAILING_INLINE_MARKUP_RE.sub("", visible).rstrip()
+        if updated == visible:
+            return visible
+        visible = updated
+
+
+def _visible_prose_start(line: str) -> str:
+    """Remove opening inline Markdown markers before checking continuation syntax."""
+    visible = line.lstrip()
+    while True:
+        updated = LEADING_INLINE_MARKUP_RE.sub("", visible).lstrip()
+        if updated == visible:
+            return visible
+        visible = updated
+
+
 def validate_line_integrity(text: str, contract: dict[str, object]) -> list[str]:
     """Return stable cross-scene layout error codes."""
     if not isinstance(contract, dict) or contract.get("enabled") is not True:
@@ -87,12 +110,22 @@ def validate_line_integrity(text: str, contract: dict[str, object]) -> list[str]
         blank_run = 0
         if kind != "prose":
             continue
-        previous = index - 1
-        if previous >= 0 and entries[previous][0] == "prose":
-            previous_text = entries[previous][1].rstrip()
-            if previous_text.endswith(("、", "，", ",")):
+        previous = _previous_nonblank(entries, index)
+        if previous is not None and entries[previous][0] == "prose":
+            previous_text = _visible_prose_end(entries[previous][1])
+            intentional_breaks = contract.get("allow_intentional_line_breaks") is True
+            adjacent_prose = previous == index - 1
+            if previous_text.endswith(("、", "，", ",")) and (
+                adjacent_prose or not intentional_breaks
+            ):
                 errors.append("dangling-comma-break")
-            if not previous_text.endswith(tuple(PROSE_TERMINATORS)):
+            continues_across_blank = not intentional_breaks and (
+                INCOMPLETE_LEAD_RE.search(previous_text) is not None
+                or PROSE_CONTINUATION_RE.match(_visible_prose_start(line)) is not None
+            )
+            if not previous_text.endswith(tuple(PROSE_TERMINATORS)) and (
+                adjacent_prose or continues_across_blank
+            ):
                 errors.append("wrapped-prose")
 
     block_kinds = {"list", "quote", "table"}

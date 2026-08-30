@@ -29,6 +29,7 @@ article. Do not force it onto a title candidate, excerpt, single section, summar
 - Prefer a prose transition when another heading is not needed for reader retrieval.
 - Do not create a heading for every short point or one/two-line paragraph.
 - Keep ordinary prose paragraphs on one physical line, with one blank line between real paragraphs.
+- Keep inline emphasis, links, and inline code on the same physical line as the surrounding sentence.
 - Headings, list items, quotes, tables, images, and fenced code use their own Markdown block syntax.
 - Preserve all code-block line breaks exactly.
 - A block introduction must be a complete sentence; never finish its grammar after a list or quote.
@@ -52,6 +53,12 @@ The global `JA-LAYOUT-001` and `JA-LAYOUT-002` gate still applies. These example
 といった文章です。
 ```
 
+```markdown
+LLMに長い文章を全部書いてもらうというより、
+**自分で書く → AIに少し整えてもらう → 最後は自分で判断する**
+くらいの使い方が、自分には一番合っています。
+```
+
 Rewrite the first as an inline complete sentence, or finish the lead before retaining a useful
 quote. Rewrite the second as:
 
@@ -60,6 +67,12 @@ quote. Rewrite the second as:
 
 - 必要以上に丁寧
 - 抽象的な表現が多い
+```
+
+Rewrite the third as one physical prose line while preserving the emphasis:
+
+```markdown
+LLMに長い文章を全部書いてもらうというより、**自分で書く → AIに少し整えてもらう → 最後は自分で判断する**くらいの使い方が、自分には一番合っています。
 ```
 
 Do not ban `たとえば`、`その結果`、or `一方で`; keep them when they express a real relation in a

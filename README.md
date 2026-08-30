@@ -136,8 +136,8 @@ traits only; it does not reuse sample facts or memorable phrases.
 
 ## Evaluation status
 
-The repository contains 88 self-authored or redistributable evaluation cases: 24 de-AI edits,
-8 direct-generation cases, 20 false positives, 16 scene cases, 12 fidelity cases, and 8 voice
+The repository contains 92 self-authored or redistributable evaluation cases: 26 de-AI edits,
+9 direct-generation cases, 21 false positives, 16 scene cases, 12 fidelity cases, and 8 voice
 cases. Deterministic structure and fidelity checks run without an API key. Human blind-review
 scores will be published after the release evaluation is completed; no result is claimed early.
 See the [validation status and pending release gates](docs/validation.md).

@@ -18,9 +18,9 @@ EXPECTED_INSTALL_DOCS = {
     "ja.md",
 }
 EXPECTED_EVAL_COUNTS = {
-    "edit": 24,
-    "write": 8,
-    "false-positive": 20,
+    "edit": 26,
+    "write": 9,
+    "false-positive": 21,
     "scene": 16,
     "fidelity": 12,
     "voice": 8,
@@ -324,8 +324,8 @@ def check_evals(errors: list[str]) -> None:
             fail(errors, f"{case_id}: unsupported license marker")
     if dict(counts) != EXPECTED_EVAL_COUNTS:
         fail(errors, f"eval counts: expected {EXPECTED_EVAL_COUNTS}, got {dict(counts)}")
-    if len(data) != 88:
-        fail(errors, f"evals/evals.json: expected 88 cases, got {len(data)}")
+    if len(data) != 92:
+        fail(errors, f"evals/evals.json: expected 92 cases, got {len(data)}")
     scenes = {
         "work-email",
         "chat-message",
@@ -416,7 +416,7 @@ def main() -> int:
     if errors:
         print("\n".join(f"ERROR: {message}" for message in errors))
         return 1
-    print("OK: skill, references, docs, links, and 88 eval cases are consistent")
+    print("OK: skill, references, docs, links, and 92 eval cases are consistent")
     return 0
 
 

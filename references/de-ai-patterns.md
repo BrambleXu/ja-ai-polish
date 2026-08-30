@@ -23,7 +23,10 @@ Apply this gate to every `write` and `edit` scene before paragraph scoring. A ph
 source-text line separated by a newline; editor soft wrapping is not a finding.
 
 - `JA-LAYOUT-001` flags a normal prose sentence split across physical lines without a real paragraph
-  boundary. Join the lines with the smallest possible edit.
+  boundary. Inline emphasis, links, and inline code remain part of the surrounding prose; keep the
+  complete sentence on one physical line even when inline formatting is present. A blank line around
+  inline formatting does not create a boundary when the grammar continues. Join the lines with the
+  smallest possible edit and preserve the inline markup.
 - `JA-LAYOUT-002` flags a sentence whose grammar depends on text before and after a list, quote,
   table, or other block. Complete the introduction before the block, or make the content inline;
   do not remove a useful block just to satisfy the rule.
@@ -69,7 +72,7 @@ Interpret totals:
 | `JA-SPECIFICITY-001` | 具体性の不足 — 強い主張に主体・条件・指標・結果・行動がない | Strong claim lacks actor, condition, metric, consequence, scene, or action present in the input | high | Supply only input-grounded specifics; otherwise flag the gap | Do not invent specifics to satisfy this rule |
 | `JA-STANCE-001` | 立場の不足 — 判断が必要なのに条件や選択を示さない | A decision-oriented passage lists pros and cons but gives no choice or selection condition | high | State the input-grounded condition or author choice | Keep neutral comparison when the purpose is reference, not recommendation |
 | `JA-EMPATHY-001` | 機械的な共感 — 関係に合わない一般的な称賛を置く | `素晴らしい質問ですね／興味深い観点です` adds generic praise mismatched to relationship | low–medium | Respond directly or acknowledge the concrete issue | Keep praise that is specific, sincere, and suitable for the relationship |
-| `JA-LAYOUT-001` | 文中の不自然な改行 — 同じ普通段落を物理行に分ける | A prose sentence ends with `、` or continues on the next physical line without a semantic paragraph boundary | high | Join the lines; preserve wording, facts, register, and punctuation | Keep real email sections, chat action items, user-requested social formatting, repository blocks, code, and voice-supported public-writing layout |
+| `JA-LAYOUT-001` | 文中の不自然な改行 — 同じ普通段落を物理行に分ける | A prose sentence ends with `、` or continues across a newline or blank line without a semantic paragraph boundary; inline emphasis, links, and inline code do not create one | high | Join the complete sentence on one physical line; preserve wording, facts, register, punctuation, and inline markup | Keep complete paragraphs, real email sections, chat action items, user-requested social formatting, repository blocks, code, and voice-supported public-writing layout |
 | `JA-LAYOUT-002` | ブロックをまたぐ未完文 — ブロックの前後で一つの文を補完する | `たとえば、` → list/quote/table → `といった文章です` leaves the grammar incomplete on both sides | high | Complete the lead sentence, then keep the useful block; inline only when it is truly one sentence | Keep a complete lead before a useful list or quote, and preserve templates, checklists, and other scene-required blocks |
 
 ## Trigger and false-positive examples
@@ -91,7 +94,7 @@ Interpret totals:
 | `JA-SPECIFICITY-001` | `この手法は非常に効果的です。` with no evidence | `nDCG@10は0.61から0.69に上がりました。` |
 | `JA-STANCE-001` | `メリットもデメリットもあり、総合判断が重要です。` | A glossary neutrally compares two methods without advising |
 | `JA-EMPATHY-001` | `素晴らしい質問ですね。` before every answer | `ご指摘の点が今回の主な論点です。` names the issue |
-| `JA-LAYOUT-001` | `一方で、文章が上手になるほど、` followed by a new physical line | A user-requested X post uses a deliberate line break supported by voice samples |
+| `JA-LAYOUT-001` | `文章を書くというより、` → `**内容を整える**` → `くらいの使い方です。` on separate physical lines | `**結論です。**` is a complete paragraph, or a user-requested X post uses a deliberate line break supported by voice samples |
 | `JA-LAYOUT-002` | `たとえば、` followed by a list and `といった文章です。` | `よくある特徴には、次のようなものがあります。` followed by a list |
 
 ## Residual audit

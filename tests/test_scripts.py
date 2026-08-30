@@ -67,17 +67,17 @@ class ScriptTests(unittest.TestCase):
     def test_eval_manifest_preparation(self) -> None:
         result = run_script("run_evals.py", "--agent", "chatgpt", "--suite", "write")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("Prepared 8 cases", result.stdout)
+        self.assertIn("Prepared 9 cases", result.stdout)
         payload = json.loads(result.stdout.rsplit("\nPrepared ", 1)[0])
         self.assertEqual(payload["status"], "prepared-not-executed")
-        self.assertEqual(len(payload["cases"]), 8)
+        self.assertEqual(len(payload["cases"]), 9)
 
     def test_detect_suite_is_derived_from_positive_and_false_positive_cases(self) -> None:
         result = run_script("run_evals.py", "--agent", "chatgpt", "--suite", "detect")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("Prepared 44 cases", result.stdout)
+        self.assertIn("Prepared 47 cases", result.stdout)
         payload = json.loads(result.stdout.rsplit("\nPrepared ", 1)[0])
-        self.assertEqual(len(payload["cases"]), 44)
+        self.assertEqual(len(payload["cases"]), 47)
         self.assertTrue(all(case["mode"] == "detect" for case in payload["cases"]))
 
     def test_scored_eval_requires_provenance_and_writes_markdown(self) -> None:
@@ -160,8 +160,8 @@ class ScriptTests(unittest.TestCase):
                 str(report),
             )
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertIn("Ran and scored 8 isolated cases", result.stdout)
-            self.assertEqual(len(json.loads(raw_results.read_text(encoding="utf-8"))), 8)
+            self.assertIn("Ran and scored 9 isolated cases", result.stdout)
+            self.assertEqual(len(json.loads(raw_results.read_text(encoding="utf-8"))), 9)
             payload = json.loads(report.read_text(encoding="utf-8"))
             self.assertEqual(payload["raw_results"], str(raw_results))
 

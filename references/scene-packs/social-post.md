@@ -8,8 +8,9 @@
 - **Personalization:** follow supplied voice; never manufacture emotion, surprise, confession, or
   controversy.
 - **Protect:** links, tags, handles, dates, release names, numbers, and distinct claims.
-- **Line integrity:** do not manufacture suspense line breaks; preserve deliberate breaks only when the
-  user requests them or Voice Calibration shows that they are a stable part of the author's style.
+- **Line integrity:** keep each ordinary sentence on one physical line. Use deliberate line breaks only
+  when the user requests them or Voice Calibration shows that they are a stable part of the author's
+  style; do not manufacture suspense breaks.
 
 ## Common failures and exceptions
 
