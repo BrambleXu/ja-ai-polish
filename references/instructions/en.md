@@ -46,7 +46,7 @@ result. Leave an explicit placeholder when the user declines.
 
 ## F05 — Diagnose
 
-Apply the naturalness and scene-fit gate, then the pattern score and False Positive Gate paragraph
+Apply the naturalness and register-fit gate, then the pattern score and False Positive Gate paragraph
 by paragraph. In `write`, run them after the first draft.
 
 - `0–2`: keep.
@@ -54,8 +54,11 @@ by paragraph. In `write`, run them after the first draft.
 - `5+`: rewrite candidate, still gated by scene, voice, and fidelity.
 
 Confirm density, position, function, scene fit, and edit cost. A single phrase is weak evidence
-unless `JA-USAGE-001` has both a contextual mismatch and a proposition-equivalent idiomatic
-alternative. Keep already-good Japanese.
+unless `JA-USAGE-001` or `JA-REGISTER-001` has both a contextual mismatch and a
+proposition-equivalent idiomatic alternative. Use `JA-USAGE-001` when the wording remains
+non-idiomatic in a neutral context and `JA-REGISTER-001` only when the mismatch depends on the
+selected scene or relationship. Assign only one of the two IDs to the same span. Keep already-good
+Japanese.
 
 **Complete when:** every proposed change has observable evidence and a stable rule ID, and every
 false-positive candidate has been tested.
@@ -84,9 +87,11 @@ Delete an unsupported evaluation or generic closing shell instead of paraphrasin
 fact embedded in that sentence as a direct statement. Remove a short text's meta-introduction
 instead of changing `解説します` to `説明します／お伝えします`.
 
-Apply high-confidence `JA-USAGE-001` findings directly in `write` and `edit`. Replace only the
-smallest scene-mismatched phrase, preserve the proposition and register, and introduce no action or
-experience absent from the ledger.
+Apply high-confidence `JA-USAGE-001` and `JA-REGISTER-001` findings directly in `write` and `edit`.
+For `JA-USAGE-001`, replace only the non-idiomatic word, collocation, or construction. For
+`JA-REGISTER-001`, adjust only the scene-mismatched pronoun, honorific, formality, or conversational
+style. Preserve the proposition, relationship, responsibility, and commitment, and introduce no
+action or experience absent from the ledger.
 
 Apply the global layout integrity gate while generating or editing: keep ordinary prose on one
 physical line, and make any sentence before or after a list, quote, or table grammatically complete.
@@ -109,9 +114,11 @@ Compare the draft with the ledger:
 - register, scene constraints, and all authorized or bounded deletions.
 
 Treat completion, release, or a passed test as status, not evidence of effectiveness or value. Then
-run the naturalness and scene-fit gate, layout integrity gate, and residual de-AI audit. Recheck
-paragraphs at `5+` and repair only safe discrepancies. Confirm that a usage edit did not invent an
-action or experience, and that joining a line did not erase a real scene boundary or protected value.
+run the naturalness and register-fit gate, layout integrity gate, and residual de-AI audit. Recheck
+paragraphs at `5+` and repair only safe discrepancies. Confirm that usage and register edits changed
+no action, experience, relationship, or responsibility; that `JA-USAGE-001` and `JA-REGISTER-001`
+are not assigned to the same span; and that joining a line did not erase a real scene boundary or
+protected value.
 
 **Complete when:** no protected value or relation drift remains and no unexplained paragraph scores
 5 or more.

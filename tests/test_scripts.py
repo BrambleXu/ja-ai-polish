@@ -32,7 +32,7 @@ class ScriptTests(unittest.TestCase):
     def test_fidelity_fixtures(self) -> None:
         result = run_script("check_fidelity.py")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("13 fidelity fixtures", result.stdout)
+        self.assertIn("14 fidelity fixtures", result.stdout)
 
     def test_fidelity_detects_broader_tokens_and_counts(self) -> None:
         source = (
@@ -78,9 +78,9 @@ class ScriptTests(unittest.TestCase):
     def test_detect_suite_is_derived_from_positive_and_false_positive_cases(self) -> None:
         result = run_script("run_evals.py", "--agent", "chatgpt", "--suite", "detect")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertIn("Prepared 57 cases", result.stdout)
+        self.assertIn("Prepared 58 cases", result.stdout)
         payload = json.loads(result.stdout.rsplit("\nPrepared ", 1)[0])
-        self.assertEqual(len(payload["cases"]), 57)
+        self.assertEqual(len(payload["cases"]), 58)
         self.assertTrue(all(case["mode"] == "detect" for case in payload["cases"]))
 
     def test_scored_eval_requires_provenance_and_writes_markdown(self) -> None:

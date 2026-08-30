@@ -3,7 +3,7 @@
 ![ja-ai-polish — Make Japanese Sound Natural](assets/ja-ai-polish-banner-en.png)
 
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-ja--ai--polish-635BFF?style=flat-square)](SKILL.md)
-[![Eval cases: 103](https://img.shields.io/badge/eval%20cases-103-0EA5E9?style=flat-square)](evals/evals.json)
+[![Eval cases: 105](https://img.shields.io/badge/eval%20cases-105-0EA5E9?style=flat-square)](evals/evals.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-2EA44F?style=flat-square)](LICENSE)
 
 [English](README.md) · [日本語](README.ja.md)
@@ -19,9 +19,9 @@ facts, register, terminology, responsibility, and authorial intent.
 
 ## What it does
 
-| ✍️ Write | 🛠️ Edit | 🔎 Detect | 🎛️ Calibrate |
+| ✍️ Write | 🛠️ Edit | 🔎 Detect | 🎛️ Imitate your style |
 |---|---|---|---|
-| Generate scene-appropriate Japanese from supplied facts and constraints. | Improve a Japanese draft with the smallest safe change. | Explain patterns and evidence without rewriting the text. | Follow repeated traits from 2–5 optional samples of the author's Japanese. |
+| Generate scene-appropriate Japanese from supplied facts and constraints. | Improve a Japanese draft with the smallest safe change. | Explain patterns and evidence without rewriting the text. | Provide 2–5 samples of your own Japanese writing, and the skill will imitate the recurring traits of your style. |
 
 ## Suitable scope
 
@@ -56,7 +56,7 @@ The installation guide is also available in [Japanese](docs/install/ja.md).
 
 ## Quick examples
 
-**✍️ Direct generation**
+**✍️ Writing**
 
 ```text
 Use /ja-ai-polish to write a Japanese Slack update.
@@ -77,6 +77,21 @@ Preserve every number, product name, and commitment. Mode: edit; intensity: stan
 
 ```text
 Use /ja-ai-polish to diagnose this Japanese text. Do not rewrite it.
+```
+
+**🎛️ Style imitation**
+
+```text
+Use /ja-ai-polish to write the following in Japanese in my style.
+The samples below are my own writing. Follow only recurring traits; do not reuse their facts or distinctive phrases.
+
+[voice sample 1]
+...
+[voice sample 2]
+...
+
+[content to write]
+...
 ```
 
 ## Modes
@@ -102,7 +117,8 @@ uses `bounded`, which lists possible full-sentence deletions instead of silently
 | Article navigation and reader management | Enter the content directly | Technical blog: `本記事ではNode.js 24とNode.js 22を比較します。` → `Node.js 24とNode.js 22を比較します。` | README: `本記事ではAPI v3.2の認証方法を比較します。` → `API v3.2の認証方法を比較します。` |
 | Formulaic ending | End on an existing result, limit, decision, or next step | Technical blog: `次はWindows 11で検証する予定です。今後の発展が期待されます。` → `次はWindows 11で検証する予定です。` | Release notes: `macOSでの検証は完了しました。ぜひ参考にしてください。` → `macOSでの検証は完了しました。` |
 | Translationese or grand metaphor | Name the concrete actor and action | Technical blog: `キャッシュはDB負荷の軽減に重要な役割を果たします。` → `キャッシュはDB負荷を軽減します。` | Product page: `再ログインなしで画面を移動でき、シームレスな体験を実現します。` → `再ログインせずに画面を移動できます。` |
-| Unidiomatic or scene-mismatched usage | Use an idiomatic collocation and register for the selected scene without adding experience | Technical blog: `原因を探すため、ログを観察しました。` → `原因を調べるため、ログを確認しました。` | Slack: `本件につきまして、ご確認のほどよろしくお願い申し上げます。` → `この件、確認をお願いします。` |
+| Unidiomatic word choice or collocation | Replace only the non-idiomatic word, collocation, or construction without adding experience | Technical blog: `新しいキャッシュ設定を本番環境に適応しました。` → `新しいキャッシュ設定を本番環境に適用しました。` | Issue reply: `ログイン画面のバグを修理しました。` → `ログイン画面のバグを修正しました。` |
+| Scene- or relationship-mismatched register | Adjust only pronouns, honorifics, formality, or conversational style while preserving meaning and responsibility | Slack: `あなたはこの案についてどう思いますか？` → `この案、どう思いますか？` | Customer email: `見積書、見ました。OKです。` → `見積書を拝見しました。内容に問題ありません。` |
 | Uniform sentence rhythm | Regroup information where meaning permits | Product page: `設定は簡単です。起動は速いです。料金は月額500円です。無料枠もあります。` → `設定は簡単で、起動も速いです。料金は月額500円で、無料枠もあります。` | README: `検索は速いです。設定は簡単です。料金は無料です。広告はありません。` → `検索は速く、設定も簡単です。料金は無料で、広告もありません。` |
 | Unnatural line breaks or block-split sentences | Join ordinary prose and complete the lead around a useful block | Technical blog: `LLMに任せるより、\n**自分で書く**\nほうが合います。` → `LLMに任せるより、**自分で書く**ほうが合います。` | README: ``この方法なら、\n`npm test`\nを実行できます。`` → ``この方法なら、`npm test`を実行できます。`` |
 | Missing specificity or stance | Use supplied actors, conditions, measures, and choices | Technical blog: `今回はAを選びます。総合的に判断することが重要です。` → `今回はAを選びます。` | Status update: `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びますが、どちらにもメリットとデメリットがあります。` → `運用負荷はAが月2時間、Bが月8時間です。今回はAを選びます。` |
@@ -131,20 +147,20 @@ then checked against that ledger. Missing information is asked for or left visib
 
 ## Author voice
 
-Provide 2–5 samples to calibrate sentence rhythm, register, subject omission, directness,
-punctuation, and the frequency of personal or evaluative language. The skill learns recurring
-traits only; it does not reuse sample facts or memorable phrases.
+Provide 2–5 samples of your own Japanese writing. The skill imitates recurring traits in sentence
+rhythm, register, subject omission, directness, punctuation, and the frequency of personal or
+evaluative language; it does not reuse sample facts or memorable phrases.
 
 ## Evaluation status
 
-The repository contains 103 self-authored or redistributable evaluation cases: 32 de-AI edits,
-9 direct-generation cases, 25 false positives, 16 scene cases, 13 fidelity cases, and 8 voice
+The repository contains 105 self-authored or redistributable evaluation cases: 32 de-AI edits,
+9 writing cases, 26 false positives, 16 scene cases, 14 fidelity cases, and 8 voice
 cases. Deterministic structure and fidelity checks run without an API key. Human blind-review
 scores will be published after the release evaluation is completed; no result is claimed early.
 See the [validation status and pending release gates](docs/validation.md).
 
-The existing Pattern map examples were tested with `gpt-5.6-luna / medium`. The new
-`JA-USAGE-001` scene examples are pending the same forward test.
+The existing Pattern map examples were tested with `gpt-5.6-luna / medium`. The split
+`JA-USAGE-001` and `JA-REGISTER-001` examples are pending the same forward test.
 
 ## Known limits
 

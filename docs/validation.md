@@ -17,8 +17,8 @@ is claimed until the required evidence exists.
 | Evaluation manifests without an execution claim | Passed | `python3 scripts/run_evals.py --agent chatgpt --suite all` |
 | One-process-per-case external runner protocol and JSON/Markdown reports | Passed | `python3 -m unittest tests.test_scripts.ScriptTests.test_isolated_runner_saves_raw_results -v` |
 
-The evaluation corpus contains 103 base cases. The derived `detect` suite reuses 32 positive edit
-cases and 25 false-positive cases, producing 57 rule-ID classification cases without duplicating
+The evaluation corpus contains 105 base cases. The derived `detect` suite reuses 32 positive edit
+cases and 26 false-positive cases, producing 58 rule-ID classification cases without duplicating
 the source corpus.
 
 ## Release gates not yet claimed

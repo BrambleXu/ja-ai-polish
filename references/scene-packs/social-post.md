@@ -6,6 +6,8 @@
 - **Usage fit:** prefer a direct Japanese predicate over a source-language-style noun label when the
   same point can be preserved. A phrase such as `第一印象` is not a banned word; keep natural uses and
   intentional headings, and do not invent `使ってみた／触ってみた` to make a post casual.
+- **Register fit:** apply `JA-REGISTER-001` only when wording conflicts with the requested audience
+  or the author's established voice. Do not make a post more casual merely because it is short.
 - **Information order:** concrete point → necessary context → grounded view or next step.
 - **Structure:** one post or a thread only when requested; respect an explicit character limit.
 - **Personalization:** follow supplied voice; never manufacture emotion, surprise, confession, or

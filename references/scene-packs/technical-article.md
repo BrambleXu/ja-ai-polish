@@ -3,9 +3,11 @@
 - **Goal:** explain an implementation, result, or technical choice accurately and densely.
 - **Audience:** Qiita, Zenn, tutorial, engineering blog, or internal technical readers.
 - **Register:** clear technical Japanese; separate observation, opinion, and general fact.
-- **Usage fit:** prefer established technical collocations and explicit predication. Replace casual,
-  source-language, or headline-like phrasing only when the article's requested voice does not support
-  it; never casualize accepted terminology for variety.
+- **Usage fit:** prefer established technical collocations and explicit predication. Replace a
+  source-language or headline-like construction only when the proposition can be preserved; never
+  vary accepted terminology for style.
+- **Register fit:** apply `JA-REGISTER-001` only when casual or ceremonial wording conflicts with the
+  article's requested voice and audience. Keep an explicitly requested conversational blog voice.
 - **Information order:** problem/context → method → evidence/result → limitation → grounded choice.
 - **Structure:** use headings for reader retrieval, not identical paragraph templates.
 - **Personalization:** permit grounded first-hand judgment only when present in the input.

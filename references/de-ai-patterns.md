@@ -4,7 +4,7 @@
 
 - Operating rule
 - Layout integrity gate
-- Naturalness and scene-fit gate
+- Naturalness and register-fit gate
 - Paragraph score
 - Rule catalog
 - Trigger and false-positive examples
@@ -39,26 +39,34 @@ user-requested social-post line breaks, status labels, repository templates/chec
 voice-calibrated public-writing layout. Technical-article Markdown headings are scene-specific and
 are defined in that Scene Pack, not here.
 
-## Naturalness and scene-fit gate
+## Naturalness and register-fit gate
 
 Apply this gate after protected-span extraction and before paragraph scoring.
 
-- `JA-USAGE-001` flags a grammatically valid phrase when its collocation is not idiomatic Japanese,
-  its dictionary meaning does not perform the intended pragmatic function in the selected scene, a
-  source-language-style noun label or headline replaces ordinary Japanese predication, or its
-  register conflicts with the channel and relationship.
-- Require contextual evidence and a proposition-equivalent idiomatic alternative. A word alone is
+- `JA-USAGE-001` flags a grammatically valid phrase when its word choice, collocation, or construction
+  remains non-idiomatic Japanese in a neutral relationship and register. This includes a dictionary
+  meaning that does not fit the proposition and a source-language-style noun label or headline that
+  replaces ordinary Japanese predication.
+- `JA-REGISTER-001` flags wording that is idiomatic in another context but whose pronoun choice,
+  honorific level, formality, or conversational style conflicts with the selected Scene Pack,
+  audience relationship, or explicit channel.
+- Classify each span once. If it remains non-idiomatic in a neutral context, use `JA-USAGE-001`.
+  Otherwise, when the problem appears only in the selected scene or relationship, use
+  `JA-REGISTER-001`. Do not double-count the same wording under both rules.
+- Both rules require contextual evidence and a proposition-equivalent alternative. A word alone is
   never evidence. For example, `第一印象` is natural in `第一印象はよかったです`; only the
-  label-like use in a specific scene may be a finding.
-- Make the smallest replacement that preserves the source meaning, temperature, and level of
-  certainty. Do not add an action or experience such as `使ってみた／触ってみた` unless the input
-  already states it.
+  label-like construction may be a `JA-USAGE-001` finding.
+- Make the smallest replacement that preserves the source meaning, temperature, certainty, and
+  relationship. For `JA-USAGE-001`, replace only the non-idiomatic word, collocation, or construction.
+  For `JA-REGISTER-001`, adjust only the scene-mismatched pronoun, honorific, or register. Do not add
+  an action or experience such as `使ってみた／触ってみた` unless the input already states it.
 
-This is a contextual finding, not a density score. Repair a high-confidence case directly in
-`write` or `edit`, and report it in `detect`. When the idiomatic alternative would change meaning or
-the scene evidence is weak, keep the source and report the ambiguity. Preserve defined terminology,
-quotations, intentional headings, relationship-appropriate honorifics, and register established by
-voice samples or an explicit request.
+These are contextual findings, not density scores. Repair a high-confidence case directly in
+`write` or `edit`, and report it in `detect`. When the alternative would change meaning or the
+contextual evidence is weak, keep the source and report the ambiguity. For `JA-USAGE-001`, preserve
+defined terminology, quotations, intentional headings, and established collocations. For
+`JA-REGISTER-001`, preserve relationship-appropriate honorifics and register established by voice
+samples or an explicit request.
 
 ## Paragraph score
 
@@ -89,7 +97,8 @@ Interpret totals:
 | `JA-META-002` | 読者への過剰な前置き — 実際の準備ではなく案内として `〜ておく` を使う | `〜しておきたい／押さえておきましょう` is used as reader-management rather than preparation | low | State the premise or caution directly | Keep literal preparatory meaning such as `保存しておきます` |
 | `JA-CLOSING-001` | 定型的な結び — 実質的な結論なしに文章を閉じる | `今後の発展が期待されます／ぜひ参考にしてください` ends without a conclusion | high | End with an existing decision, limitation, next step, or result; otherwise delete the shell | Keep an explicitly requested call to action supported by context |
 | `JA-TRANSLATION-001` | 翻訳調・誇張表現 — 具体的な動作を英語的な比喩や抽象語に置き換える | Business-English calques or grand metaphors replace concrete action: `重要な役割を果たす`, `シームレスな体験`, `価値を創造する` | medium | Name the actor and actual action or effect already in the input | Keep accepted product terminology and intentional brand copy |
-| `JA-USAGE-001` | 場面に合わない語法・語の組み合わせ — 文法上は成立しても、語の結びつき、語用、見出し形、文体が文脈に合わない | A grammatical phrase has a non-idiomatic collocation, source-language-style noun label, or register mismatch with the selected Scene Pack while a proposition-equivalent idiomatic alternative exists | high | Replace the smallest phrase; preserve meaning and formality; add no action or experience | Keep standard collocations, intentional headings, defined terms, and register justified by voice, relationship, or an explicit request |
+| `JA-USAGE-001` | 不自然な語法・語の組み合わせ — 文法上は成立しても、語の選択、結びつき、見出し形が中立的な文脈でも不自然 | A grammatical phrase remains non-idiomatic in a neutral relationship and register while a proposition-equivalent idiomatic word, collocation, or construction exists | high | Replace only the non-idiomatic word, collocation, or construction; preserve meaning and register; add no action or experience | Keep established collocations, defined terms, quotations, and intentional headings |
+| `JA-REGISTER-001` | 場面・関係に合わない文体 — 表現自体は自然でも、代名詞、敬語、丁寧さ、会話調が媒体や相手との関係に合わない | Wording is idiomatic in another context but its pronoun choice, honorific level, formality, or conversational style conflicts with the selected Scene Pack or audience relationship | high | Adjust only the mismatched pronoun, honorific, or register; preserve the proposition, relationship, responsibility, and commitment | Keep register justified by the relationship, voice samples, explicit audience, or user request |
 | `JA-RHYTHM-001` | 均一な文長 — 四文の長さと拍子が機械的にそろう | Four consecutive sentences have narrowly similar length and cadence | high | Combine, split, or reorder only where meaning permits | Keep checklists, specifications, safety instructions, and intentional parallelism |
 | `JA-RHYTHM-002` | 句末の機械的反復 — 機能のない同一語尾が四文続く | Four consecutive sentences repeat the same ending without functional parallelism | medium | Vary syntax through natural information grouping | Keep consistent polite register; do not vary endings merely for decoration |
 | `JA-SPECIFICITY-001` | 具体性の不足 — 強い主張に主体・条件・指標・結果・行動がない | Strong claim lacks actor, condition, metric, consequence, scene, or action present in the input | high | Supply only input-grounded specifics; otherwise flag the gap | Do not invent specifics to satisfy this rule |
@@ -112,7 +121,8 @@ Interpret totals:
 | `JA-META-002` | `ここで注意点を確認しておきましょう。` → `注意点は1つです。` | `念のためログを保存しておきます。` |
 | `JA-CLOSING-001` | `今後ますます重要になるでしょう。` | `次回リリースは10月です。` already carries a real next step |
 | `JA-TRANSLATION-001` | `検索で新たな価値を創造します。` | A brand guide explicitly requires its established slogan |
-| `JA-USAGE-001` | X投稿の `新しいCLIツールの第一印象：速い、とにかく速い。` → `新しいCLIツール、まず感じたのは速さ。とにかく速い。` | `新しいCLIツールの第一印象はよかったです。` uses `第一印象` as an ordinary predicate subject |
+| `JA-USAGE-001` | 技術記事の `新しいキャッシュ設定を本番環境に適応しました。` → `新しいキャッシュ設定を本番環境に適用しました。` | `チームは新しい開発環境に適応しました。` uses `適応` with its ordinary meaning |
+| `JA-REGISTER-001` | チーム内 Slack の `本件につきまして、ご確認のほどよろしくお願い申し上げます。` → `この件、確認をお願いします。` | The same formal request can be appropriate in an external customer email |
 | `JA-RHYTHM-001` | Four same-length benefit sentences | Four short emergency steps intentionally use parallel form |
 | `JA-RHYTHM-002` | Four descriptive sentences all end in `〜です` | A requirements list consistently uses `〜すること` |
 | `JA-SPECIFICITY-001` | `この手法は非常に効果的です。` with no evidence | `nDCG@10は0.61から0.69に上がりました。` |
@@ -136,6 +146,8 @@ Run the layout integrity gate again after editing. Confirm that a joined line di
 scene boundary, and that a block introduction is independently grammatical. Do not flatten legal
 lists, quotes, templates, code, or voice-supported social/public-writing layout.
 
-Run the naturalness and scene-fit gate again after editing. Confirm that every `JA-USAGE-001`
-replacement remains idiomatic in the selected scene and preserves the same proposition, register,
-and degree of certainty without inventing use, experience, or relationship.
+Run the naturalness and register-fit gate again after editing. Confirm that every `JA-USAGE-001`
+replacement is idiomatic in a neutral context and that every `JA-REGISTER-001` replacement fits the
+selected scene and relationship. Each span must have only one of the two rule IDs. Preserve the same
+proposition, register requirements, and degree of certainty without inventing use, experience, or
+relationship.
